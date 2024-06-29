@@ -2,6 +2,9 @@ package at.technikum;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BoardTest {
@@ -20,11 +23,11 @@ class BoardTest {
     @Test
     void isCellEmptyNo() {
         Board board = new Board();
-         for (int i = 0; i < board.cells.length; i++) {
+        for (int i = 0; i < board.cells.length; i++) {
             for (int j = 0; j < board.cells[i].length; j++) {
                 board.place(i, j, 'O');
             }
-         }
+        }
         assertFalse(board.isCellEmpty(1, 1));
     }
 
@@ -32,7 +35,7 @@ class BoardTest {
     void isMarkerO() {
         Board board = new Board();
         board.clear();
-        board.place(2,2,  'O');
+        board.place(2, 2, 'O');
         assertEquals('O', board.cells[2][2]);
     }
 
@@ -40,7 +43,7 @@ class BoardTest {
     void isMarkerX() {
         Board board = new Board();
         board.clear();
-        board.place(2,2,  'X');
+        board.place(2, 2, 'X');
         assertEquals('X', board.cells[2][2]);
     }
 
@@ -80,4 +83,54 @@ class BoardTest {
         }
         assertEquals('X', board.cells[2][2]);
     }
-}
+
+    @Test
+    void printOK() {
+        Board board = new Board();
+        for (int i = 0; i < board.cells.length; i++) {
+            for (int j = 0; j < board.cells[i].length; j++) {
+                board.cells[i][j] = 'X';
+            }
+        }
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        PrintStream originalOut = System.out;
+        System.setOut(new PrintStream(outContent));
+
+        try {
+            // Call the print method
+            board.print();
+
+            // Get the output and check if it contains the expected content
+            String output = outContent.toString();
+            assertTrue(output.contains("X"));
+        } finally {
+            // Restore the original System.out
+            System.setOut(originalOut);
+        }
+    }
+
+        @Test
+        void printNOK () {
+            Board board = new Board();
+            for (int i = 0; i < board.cells.length; i++) {
+                for (int j = 0; j < board.cells[i].length; j++) {
+                    board.cells[i][j] = 'X';
+                }
+            }
+            ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+            PrintStream originalOut = System.out;
+            System.setOut(new PrintStream(outContent));
+
+            try {
+                // Call the print method
+                board.print();
+
+                // Get the output and check if it contains the expected content
+                String output = outContent.toString();
+                assertFalse(output.contains("O"));
+            } finally {
+                // Restore the original System.out
+                System.setOut(originalOut);
+            }
+        }
+    }
