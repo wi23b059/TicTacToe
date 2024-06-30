@@ -15,6 +15,22 @@ public class TicTacToe {
         board = new Board();
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
     public void start() {
         Scanner scanner = new Scanner(System.in);
         boolean gameRunning = true;
@@ -76,10 +92,5 @@ public class TicTacToe {
             return true;
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        TicTacToe game = new TicTacToe();
-        game.start();
     }
 }
