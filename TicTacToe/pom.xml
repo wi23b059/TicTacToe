@@ -20,7 +20,7 @@
             <name>GitHub wi23b059-code Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/wi23b059/TicTacToe</url>
         </repository>
-    </distributionManagement>>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
