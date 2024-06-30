@@ -84,16 +84,59 @@ class BoardTest {
         assertEquals('X', board.cells[2][2]);
     }
 
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+
+    // Redirect System.out to capture printed output
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    // Restore original System.out
+    public void restoreStreams() {
+        System.setOut(originalOut);
+    }
+
     @Test
     void printOK() {
-        TicTacToe game = new TicTacToe();
-        assertDoesNotThrow(() -> game.start());
+        Board board = new Board();
+        setUpStreams();
+
+        // Call the print method
+        board.print();
+
+        // Define expected output
+        String lineSeparator = System.lineSeparator();
+        String expectedOutput = " | | " + lineSeparator + "-----" + lineSeparator + " | | " + lineSeparator + "-----" + lineSeparator + " | | " + lineSeparator;
+
+        // Assert that printed output matches expected output
+        assertEquals(expectedOutput, outContent.toString());
+
+        restoreStreams();
     }
 
     @Test
     void printNOK () {
-        TicTacToe game = new TicTacToe();
-        game.start();
-        assertFalse(game.getBoard().isFull());
+        Board board = new Board();
+        setUpStreams();
+
+        // Call the print method (making a change for failure)
+        board.cells[1][1] = 'X'; // Simulate a change to cell [1][1]
+
+        // Call the print method
+        board.print();
+
+        // Define expected output (expected to fail due to the change)
+        String lineSeparator = System.lineSeparator();
+        String expectedOutput = " | | " + lineSeparator + "-----" + lineSeparator + " | | " + lineSeparator + "-----" + lineSeparator + " | | " + lineSeparator;
+
+        // Assert that printed output does NOT match expected output
+        assertNotEquals(expectedOutput, outContent.toString());
+
+        restoreStreams();
+
+        //TicTacToe game = new TicTacToe();
+        //game.start();
+        //assertFalse(game.getBoard().isFull());
     }
 }
