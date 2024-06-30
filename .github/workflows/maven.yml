@@ -34,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: TicTacToe-JAR
-        path: target/*.jar  # Adjust the path based on where your JAR is generated
+        path: TicTacToe/target/*.jar  # Adjust the path based on where your JAR is generated
