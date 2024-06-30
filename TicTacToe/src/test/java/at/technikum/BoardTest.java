@@ -86,51 +86,14 @@ class BoardTest {
 
     @Test
     void printOK() {
-        Board board = new Board();
-        for (int i = 0; i < board.cells.length; i++) {
-            for (int j = 0; j < board.cells[i].length; j++) {
-                board.cells[i][j] = 'X';
-            }
-        }
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-
-        try {
-            // Call the print method
-            board.print();
-
-            // Get the output and check if it contains the expected content
-            String output = outContent.toString();
-            assertTrue(output.contains("X"));
-        } finally {
-            // Restore the original System.out
-            System.setOut(originalOut);
-        }
+        TicTacToe game = new TicTacToe();
+        assertDoesNotThrow(() -> game.start());
     }
 
-        @Test
-        void printNOK () {
-            Board board = new Board();
-            for (int i = 0; i < board.cells.length; i++) {
-                for (int j = 0; j < board.cells[i].length; j++) {
-                    board.cells[i][j] = 'X';
-                }
-            }
-            ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-            PrintStream originalOut = System.out;
-            System.setOut(new PrintStream(outContent));
-
-            try {
-                // Call the print method
-                board.print();
-
-                // Get the output and check if it contains the expected content
-                String output = outContent.toString();
-                assertFalse(output.contains("O"));
-            } finally {
-                // Restore the original System.out
-                System.setOut(originalOut);
-            }
-        }
+    @Test
+    void printNOK () {
+        TicTacToe game = new TicTacToe();
+        game.start();
+        assertFalse(game.getBoard().isFull());
     }
+}

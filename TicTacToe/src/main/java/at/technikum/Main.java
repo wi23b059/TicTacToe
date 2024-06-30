@@ -1,13 +1,10 @@
 package at.technikum;
 
+import java.io.StringReader;
+
 public class Main {
     public static void main(String[] args) {
-
-        // Initializes the board.
-        Board board = new Board();
-
-        // Starts the game:
-        board.print();
-
+        TicTacToe game = new TicTacToe();
+        game.start();
     }
 }
